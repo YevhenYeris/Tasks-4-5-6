@@ -1,6 +1,7 @@
 ﻿using SixthAssignment.Triangles;
 using System;
 using System.Collections.Generic;
+using System.Drawing.Text;
 using System.Text;
 using System.Windows.Forms;
 
@@ -54,9 +55,9 @@ namespace SixthAssignment
         protected static bool IsRight(double a, double b, double angle)
         {
             double c = GetC(a, b, angle);
-            return angle == 90 || a * a + b * b == c * c ||
-                   a * a + c * c == b * b ||
-                   b * b + c * c == a * a;
+            var f = Math.Asin(Math.Min(a, b) / Math.Max(a, b));
+            var s = Math.PI * (90 - angle) / 180;
+            return angle == 90 || Math.Round(f, 2) == Math.Round(s, 2);
         }
 
         protected static bool IsIsosceles(double a, double b, double angle)
@@ -78,7 +79,8 @@ namespace SixthAssignment
 
         private static double GetC(double a, double b, double angle)
         {
-            return Math.Sqrt(a * a + b * b - 2 * a * b * Math.Cos(Math.PI * angle / 180));
+            double c = Math.Sqrt(a * a + b * b - 2 * a * b * Math.Cos(Math.PI * angle / 180));
+            return Math.Round(c, 2);
         }
     }
 }
